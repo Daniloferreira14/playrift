@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        input, button {
+            width: 100%;
+            padding: 20px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-left: -19px;
+        }
+        button {
+            background-color: #ddd;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color:#ff5722 ;
+        }
+        .pix {
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        #mensagem {
+            margin-top: 10px;
+            font-weight: bold;
+            color: red;
+        }
+        #instagram {
+            display: none;
+            margin-top: 15px;
+            font-weight: normal;
+            color: #333;
+        }
+        #instagram a {
+            color: white;
+            background-color: #ff00aa;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 30px;
+        }
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Finalizar Pagamento</h2>
+        <p><strong>Quantidade de Números:</strong> <span id="quantidade"></span></p>
+        <p><strong>Valor a Pagar:</strong> R$ <span id="valor"></span></p>
+
+        <input type="text" id="nome" placeholder="Nome Completo">
+        <input type="text" id="telefone" placeholder="Telefone">
+        <input type="text" id="cpf" placeholder="CPF">
+
+        <p>Copie o Pix para pagamento:</p>
+        <p class="pix" onclick="copiarPix()">71e7dc45-199f-4e59-9894-5839e45a3750</p>
+
+        <button onclick="confirmarPagamento()">Copiar o pix</button>
+        <p id="mensagem"></p>
+
+        <div id="instagram">
+            <p><strong>Produto será sorteado via Instagram!</strong></p>
+            <br>
+            <p>Para verificar se você foi premiado, acesse o Instagram através do link abaixo: <span>sorteio sera ao vivo</span></p>
+            <br>
+            <a href="https://www.instagram.com/playrift_?igsh=MWlnNDNxN2Y1bWVwag==" target="_blank">Verifique no Instagram</a>
+        </div>
+    </div>
+
+    <script>
+        // Recupera os dados da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const quantidade = urlParams.get('quantidade');
+        const valor = urlParams.get('valor');
+
+        // Exibe os dados na página
+        document.getElementById('quantidade').innerText = quantidade;
+        document.getElementById('valor').innerText = valor;
+
+        // Elementos
+        const nomeInput = document.getElementById('nome');
+        const telefoneInput = document.getElementById('telefone');
+        const cpfInput = document.getElementById('cpf');
+        const botaoConfirmar = document.querySelector('button');
+        const mensagem = document.getElementById('mensagem');
+        const instagram = document.getElementById('instagram');
+        let timer;
+
+        // Função para copiar o Pix
+        function copiarPix() {
+            const pix = "71e7dc45-199f-4e59-9894-5839e45a3750"; // SEU PIX AQUI
+            navigator.clipboard.writeText(pix);
+            alert("Pix copiado para a área de transferência!");
+        }
+
+        // Função para iniciar a contagem de 30 segundos quando o formulário for preenchido
+        function iniciarContagem() {
+            const agora = Date.now();
+            localStorage.setItem('tempoExpiracao', agora + 30 * 1000); // 30 segundos
+            verificarTempo();
+        }
+
+        // Verifica se o tempo já expirou
+        function verificarTempo() {
+            const tempoExpiracao = localStorage.getItem('tempoExpiracao');
+            if (tempoExpiracao && Date.now() > tempoExpiracao) {
+                botaoConfirmar.disabled = true;
+                botaoConfirmar.style.backgroundColor = "#ddd";
+                mensagem.innerText = "Tempo expirado! Recarregue a página para tentar novamente.";
+            } else {
+                setTimeout(verificarTempo, 1000);
+            }
+        }
+
+        // Ativar botão quando os campos forem preenchidos
+        function verificarCampos() {
+            if (nomeInput.value && telefoneInput.value && cpfInput.value) {
+                botaoConfirmar.disabled = false;
+                botaoConfirmar.style.backgroundColor = "#ff5722";
+            } else {
+                botaoConfirmar.disabled = true;
+                botaoConfirmar.style.backgroundColor = "#a5d6a7";
+            }
+        }
+
+        // Confirmação do pagamento
+        function confirmarPagamento() {
+            mensagem.innerText = "Pix copiado! Agora faça o pagamento pelo banco.";
+            copiarPix(); // Copia o número do Pix
+
+            // Iniciar contagem de 30 segundos após o pagamento ser confirmado
+            iniciarContagem();
+
+            // Mostrar o botão de Instagram
+            setTimeout(() => {
+                instagram.style.display = "block";
+            }, 500); // Espera um pouco antes de mostrar o botão
+        }
+
+        // Monitora os campos e ativa o botão após preenchimento
+        nomeInput.addEventListener('input', verificarCampos);
+        telefoneInput.addEventListener('input', verificarCampos);
+        cpfInput.addEventListener('input', verificarCampos);
+    </script>
+</body>
+</html>

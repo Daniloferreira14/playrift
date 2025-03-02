@@ -1,0 +1,146 @@
+body {
+    background-color: #33333333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 220vh;
+    background-color: #2e2e2e;
+}
+
+.rifa-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 500px;
+    background-color: #33333333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    overflow: hidden;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    margin-top: -230px;
+}
+
+.carrossel-container {
+    position: relative;
+    width: 100%;
+    height: 600px; /* Ajuste a altura conforme necessário */
+    overflow: hidden;
+    margin-bottom: 20px; /* Espaço entre o carrossel e a descrição */
+}
+
+.carrossel-imagens {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carrossel-imagens img {
+    width: 100%;
+    height: 100%; /* Ajusta a imagem para preencher completamente o container */
+    object-fit: cover; /* Faz a imagem preencher a área sem distorcer */
+    flex-shrink: 0; /* Impede a imagem de encolher se necessário */
+    border-radius: 12px;
+}
+
+.carrossel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.carrossel-button.prev {
+    left: 10px;
+}
+
+.carrossel-button.next {
+    right: 10px;
+}
+
+.rifa-header {
+    color:white;
+    text-align: center;
+    margin-top: 5px; /* Ajusta o espaço entre a imagem e a descrição */
+    font-size: 18px; /* Ajuste o tamanho da fonte se necessário */
+    font-weight: bold;
+    width: 110%;
+}
+
+.botao-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+}
+
+.botao-container button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #f4f4f4;
+    border: 1px solid #1a1a2e;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50px;
+    text-align: center;
+}
+
+.botao-container button:hover {
+    background-color: #ff5722;
+}
+
+.valor-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.valor-container input {
+    padding: 12px;
+    font-size: 16px;
+    width: 150px;
+    margin-right: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.valor-container button {
+    padding: 12px;
+    font-size: 17px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+    color: #333;
+}
+
+.valor-container button:hover {
+    background-color: #ff5722;
+}
+
+footer {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+}
+
+footer a {
+    color: #ff5722;
+    text-decoration: none;
+}
+span{
+  color: red;
+  font-size: 12px;
+}
